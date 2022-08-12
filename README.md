@@ -1,4 +1,4 @@
-# Vide de presentación
+# Video de presentación
 
 https://www.youtube.com/watch?v=5oUf6VtmT5Q
 
