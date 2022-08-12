@@ -1,6 +1,6 @@
-# Contenedor de la base de datos
+# Vide de presentacion
 
-Video de presentacion: https://www.youtube.com/watch?v=5oUf6VtmT5Q
+https://www.youtube.com/watch?v=5oUf6VtmT5Q
 
 # Contenedor de la base de datos
 
