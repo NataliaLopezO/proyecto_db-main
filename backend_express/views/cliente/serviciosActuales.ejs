@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="Es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Cliente</title>
+
+    <link rel="stylesheet" href="/stylesheets/estilos.css">
+    <link rel="stylesheet" href="/stylesheets/tablas.css">
+    <link rel="stylesheet" href="/stylesheets/ventana.css">
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+<body id="body">
+    
+    <header>
+
+        <div class="icon_menu">
+        <i class="fas fa-bars" id="btn_open" ></i>
+
+        </div>
+    </header>
+
+
+    <div class="menu__side" id="menu_side">
+        <div class="name__page">
+            <i class="fa-solid fa-briefcase"></i>
+           <h1>Mande</h1>
+        </div>
+
+        <div class="options__menu">
+            <ul class="tabs">
+                <li><a href='http://localhost:3000/cliente/<%= email %>'>
+                <div class="option">
+                    
+                    <i class="fas fa-home" title="Inicio"></i>
+                    <h4>Inicio</h4>
+                   
+                </div> </a>
+            </li>
+
+            <li><a href='http://localhost:3000/cliente/configuracionCliente/<%= email %>'>
+                <div class="option">
+
+                   
+                    <i class="fa-solid fa-gear" title="Configuracion perfil" id="btn_ini"></i>
+                    <h4>Configuración perfil</h4>
+                   
+                </div>
+            </li>
+
+            <li><a href='http://localhost:3000/cliente/buscarServicio/<%= email %>'>
+                <div class="option">
+                    <i class="fa-solid fa-map-location" title="Trabajos cerca de ti"></i>
+                    <h4>Buscar servicio</h4>
+                    
+                </div>
+            </a></li>
+
+            <li><a href='http://localhost:3000/cliente/serviciosActuales/<%= email %>' class="selected">
+                <div class="option">
+                   
+                        <i class="fa-solid fa-person-digging"  title="Servicios actuales"></i>
+                        <h4>Servicios actuales</h4>
+                                     
+                </div></a>  
+            </li>
+
+            <li><a href='http://localhost:3000/cliente/historialServiciosCliente/<%= email %>'>
+                <div class="option">
+                  
+                    <i class="fa-regular fa-file-lines" title="Historial de servicios"></i>
+                    <h4>Historial de servicios</h4>
+                    
+                </div></a>
+            </li>
+            
+
+            <li><a href='http://localhost:3000/cliente/historialCobrosCliente/<%= email %>'>
+                <div class="option">
+                  
+                    <i class="fa-solid fa-file-invoice-dollar" title="Historial de cobros"></i>
+                    <h4>Historial de pagos</h4>
+                  
+                </div></a>
+
+            </li>
+
+
+            <li><a href='http://localhost:3000/'>
+                <div class="option">
+                    <i class="fa-solid fa-right-from-bracket" title="Logout"></i>
+                    <h4>Salir</h4>
+             
+                </div></a>
+            </li>
+
+
+        </ul>
+
+
+
+        </div>
+    </div>
+
+    <script>
+        //Ejecutar función en el evento click
+        document.getElementById("btn_open").addEventListener("click", open_close_menu);
+        document.getElementById("btn_ini").addEventListener("click", esconder);
+
+        //Declaramos variables
+        var side_menu = document.getElementById("menu_side");
+        var btn_open = document.getElementById("btn_open") ;
+        var body = document.getElementById("body");
+
+
+
+        function esconder(){
+            $('.secciones article').hide();
+            $('.secciones article:first').show();
+
+        }
+
+        //Evento para mostrar y ocultar menú
+            function open_close_menu(){
+                body.classList.toggle("body_move");
+                side_menu.classList.toggle("menu__side_move");
+            }
+
+        //Si el ancho de la página es menor a 760px, ocultará el menú al recargar la página
+
+        if (window.innerWidth < 760){
+
+            body.classList.add("body_move");
+            side_menu.classList.add("menu__side_move");
+        }
+
+        //Haciendo el menú responsive(adaptable)
+
+        window.addEventListener("resize", function(){
+
+            if (window.innerWidth > 760){
+
+                body.classList.remove("body_move");
+                side_menu.classList.remove("menu__side_move");
+            }
+
+            if (window.innerWidth < 760){
+
+                body.classList.add("body_move");
+                side_menu.classList.add("menu__side_move");
+            }
+
+            
+
+        });
+
+    </script>
+        
+
+    <main>
+        <div class="contenedor">
+            <article >
+                <h1>SERVICIOS ACTUALES</h1>
+                <p>Aquí encontrarás información sobre los servicios activos que poseas, asi mismo, podrás realizar el respectivo pago una vez se finalice el servicio.</p>
+                <table class="content-table">
+                    <tr>
+                        <td class="Princ">Nombre trabajador</td>
+                        <td class="Princ">Labor</td>
+                        <td class="Princ">Ciudad</td>
+                        <td class="Princ">Precio</td>
+                        <td class="Princ">Unidad</td>
+                        <td class="Princ">Fecha</td>
+                        </tr>
+                   
+                <% for(var i=0; i < data.length; i++) { %>
+                    <tr>
+                        <td><%= data[i].nombre %></td>
+                        <td><%= data[i].nombre_labor %></td>
+                        <td><%= data[i].ciudad %></td>
+                        <td><%= data[i].precio_labor %></td>
+                        <td><%= data[i].unidad_valor %></td>
+                        <td><%= data[i].fecha_inicio %></td>
+                    </tr>
+                 <% } %>
+        
+                </table>
+
+                <button id="btn-abrir-popup" class="btn-abrir-popup">Pagar</button>
+                
+
+        
+            </article>
+            <div class="overlay" id="overlay">
+                <div class="popup" id="popup">
+                    <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+                    <h3>Pagar</h3>
+                    <form method="POST" action="" >
+                        <div class="contenedor-inputs">
+                            <P class="parrafo">Selecciona un trabajador para realizar el pago </P>
+                            <br>
+                            <select name='servicio' class="seleccion" id='select' >
+                                <% for(var i=0; i < data.length; i++) { %>
+                                    <option value= "<%= data[i].id_servicio %>" > <%= data[i].nombre %></option>
+                                <% } %>    
+                            </select>
+                            <br>
+                            <br>
+                            <label for="Puntaje">Puntaje</label> <br/>
+                            <input type="radio" name="puntaje" value=1 /> 1 
+                            <input type="radio" name="puntaje" value=2 /> 2 
+                            <input type="radio" name="puntaje" value=3 /> 3
+                            <input type="radio" name="puntaje" value=4 /> 4
+                            <input type="radio" name="puntaje" value=4 /> 5
+                            <br>
+                            <br>
+                            <label for="descripcion">Reseña</label> <br/>
+                            <textarea id="descripcion" name="descripcion" cols="40" rows="5"></textarea>
+
+
+                        </div>
+                        <input type="submit" class="btn-submit" value="Pagar">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script >
+            var btnAbrirPopup = document.getElementById('btn-abrir-popup'),
+            overlay = document.getElementById('overlay'),
+            popup = document.getElementById('popup'),
+            btnCerrarPopup = document.getElementById('btn-cerrar-popup');
+        
+            btnAbrirPopup.addEventListener('click', function(){
+            overlay.classList.add('active');
+            popup.classList.add('active');
+            });
+        
+            btnCerrarPopup.addEventListener('click', function(e){
+            e.preventDefault();
+            overlay.classList.remove('active');
+            popup.classList.remove('active');
+            }); 
+        
+        </script>
+
+
+       
+    </main>
+</body>
+</html>

@@ -1,0 +1,5 @@
+FROM postgres:12.11
+COPY schema_v1.sql /tmp/1schema.sql
+COPY data_v1.sql   /tmp/2datos.sql
+RUN  psql postgresql://postgres:mysecretpassword@127.0.0.1:5432/mande_db -f  /tmp/1schema.sql
+RUN  psql postgresql://postgres:mysecretpassword@127.0.0.1:5432/mande_db -f  /tmp/2datos.sql

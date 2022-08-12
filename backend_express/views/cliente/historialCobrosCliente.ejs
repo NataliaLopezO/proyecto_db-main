@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="Es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Cliente</title>
+    <link rel="stylesheet" href="/stylesheets/estilos.css">
+    <link rel="stylesheet" href="/stylesheets/tablas.css">
+    <link rel="stylesheet" href="/stylesheets/ventana.css">
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+<body id="body">
+    
+    <header>
+
+        <div class="icon_menu">
+        <i class="fas fa-bars" id="btn_open" ></i>
+
+        </div>
+    </header>
+
+
+    <div class="menu__side" id="menu_side">
+        <div class="name__page">
+            <i class="fa-solid fa-briefcase"></i>
+           <h1>Mande</h1>
+        </div>
+
+        
+        <div class="options__menu">
+            <ul class="tabs">
+                <li><a href="http://localhost:3000/cliente/<%= email %>" >
+                <div class="option">
+                    <i class="fas fa-home" title="Inicio"></i>
+                    <h4>Inicio</h4>
+
+                </div>
+            </a></li>
+
+            <li><a href='http://localhost:3000/cliente/configuracionCliente/<%= email %>'>
+                <div class="option">
+                    <i class="fa-solid fa-gear" title="Configuracion perfil" id="btn_ini"></i>
+                    <h4>Configuración perfil</h4>
+                    
+                </div>
+            </a></li>
+
+            <li><a href='http://localhost:3000/cliente/buscarServicio/<%= email %>'>
+                <div class="option">
+                    <i class="fa-solid fa-map-location" title="Trabajos cerca de ti"></i>
+                    <h4>Buscar servicio</h4>
+                    
+                </div>
+            </a></li>
+
+            <li><a href='http://localhost:3000/cliente/serviciosActuales/<%= email %>'>
+                <div class="option">
+                    <i class="fa-solid fa-person-digging"  title="Servicios actuales"></i>
+                    <h4>Servicios actuales</h4>
+                    
+                </div>
+            </a></li>
+
+            <li><a href="http://localhost:3000/cliente/historialServiciosCliente/<%= email %>" >
+                <div class="option">
+                    <i class="fa-regular fa-file-lines" title="Historial de servicios"></i>
+                    <h4>Historial de servicios</h4>
+                    
+                </div>
+            </a></li>
+
+            <li><a href="http://localhost:3000/cliente/historialCobrosCliente/<%= email %>" class="selected">
+                <div class="option">
+                    <i class="fa-solid fa-file-invoice-dollar" title="Historial de cobros"></i>
+                    <h4>Historial de pagos</h4>
+                    
+                </div>
+            </a></li>
+
+          
+
+
+            <li><a href='http://localhost:3000/'>
+                <div class="option">
+                    <i class="fa-solid fa-right-from-bracket" title="Logout"></i>
+                    <h4>Salir</h4>
+             
+                </div></a>
+            </li>
+
+        </ul>
+
+
+
+        </div>
+    </div>
+
+    <script>
+        //Ejecutar función en el evento click
+        document.getElementById("btn_open").addEventListener("click", open_close_menu);
+        document.getElementById("btn_ini").addEventListener("click", esconder);
+
+        //Declaramos variables
+        var side_menu = document.getElementById("menu_side");
+        var btn_open = document.getElementById("btn_open") ;
+        var body = document.getElementById("body");
+
+
+
+        function esconder(){
+            $('.secciones article').hide();
+            $('.secciones article:first').show();
+
+        }
+
+        //Evento para mostrar y ocultar menú
+            function open_close_menu(){
+                body.classList.toggle("body_move");
+                side_menu.classList.toggle("menu__side_move");
+            }
+
+        //Si el ancho de la página es menor a 760px, ocultará el menú al recargar la página
+
+        if (window.innerWidth < 760){
+
+            body.classList.add("body_move");
+            side_menu.classList.add("menu__side_move");
+        }
+
+        //Haciendo el menú responsive(adaptable)
+
+        window.addEventListener("resize", function(){
+
+            if (window.innerWidth > 760){
+
+                body.classList.remove("body_move");
+                side_menu.classList.remove("menu__side_move");
+            }
+
+            if (window.innerWidth < 760){
+
+                body.classList.add("body_move");
+                side_menu.classList.add("menu__side_move");
+            }
+
+            
+
+        });
+    </script>
+
+    <main>
+ 
+        <div class="contenedor">
+            <article>
+                <h1>HISTORIAL COBROS</h1>
+                <p>Estimado cliente, en esta sección podrás encontrar todos los que has realizado y su respectiva información. </p>
+                   
+                <table class="content-table">  
+                <tr>
+                        <td class="Princ">Nombre trabajador</td>
+                        <td class="Princ">Labor</td>
+                        <td class="Princ">Precio</td>
+                        <td class="Princ">Unidad</td>
+                        <td class="Princ">Fecha Pago</td>
+                        </tr>
+                   
+                <% for(var i=0; i < data.length; i++) { %>
+                    <tr>
+                        <td><%= data[i].nombre %></td>
+                        <td><%= data[i].nombre_labor %></td>
+                        <td><%= data[i].precio_labor %></td>
+                        <td><%= data[i].unidad_valor %></td>
+                        <td><%= data[i].fecha_pago %></td>
+                    </tr>
+                 <% } %>
+        
+                </table>
+        
+            </article>
+                </div>
+
+
+    </main>
+</body>
+</html>

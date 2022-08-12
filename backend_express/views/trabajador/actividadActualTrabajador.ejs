@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="Es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu trabajador</title>
+    <link rel="stylesheet" href="/stylesheets/estilos.css">
+    <link rel="stylesheet" href="/stylesheets/tablas.css">
+    <link rel="stylesheet" href="/stylesheets/ventana.css">
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+</head>
+<body id="body">
+    
+    <header>
+
+        <div class="icon_menu">
+        <i class="fas fa-bars" id="btn_open" ></i>
+
+        </div>
+    </header>
+
+
+    <div class="menu__side" id="menu_side">
+        <div class="name__page">
+            <i class="fa-solid fa-briefcase"></i>
+           <h1>Mande</h1>
+        </div>
+
+        
+        <div class="options__menu">
+            <ul class="tabs">
+                <li><a href="http://localhost:3000/trabajador/<%= email %>">
+                <div class="option">
+                    <i class="fas fa-home" title="Inicio"></i>
+                    <h4>Inicio</h4>
+
+                </div>
+            </a></li>
+
+            <li><a href='http://localhost:3000/trabajador/configuracionTrabajador/<%= email %>'>
+                <div class="option">
+                    <i class="fa-solid fa-gear" title="Configuracion perfil" id="btn_ini"></i>
+                    <h4>Configuración perfil</h4>
+                    
+                </div>
+            </a></li>
+
+            <li><a href='http://localhost:3000/trabajador/puntajeTrabajador/<%= email %>'>
+                <div class="option">
+                    <i class="fa-solid fa-star"></i>
+                    <h4>Puntaje y reseñas</h4>
+                    
+                </div>
+            </a></li>
+
+            <li><a href='http://localhost:3000/trabajador/serviciosTrabajador/<%= email %>'>
+                <div class="option">
+                    <i class="fa-solid fa-person-digging"  title="Servicios actuales"></i>
+                    <h4>Servicios ofrecidos</h4>
+                    
+                </div>
+            </a></li>
+
+            <li><a href='http://localhost:3000/trabajador/actividadActualTrabajador/<%= email %>' class="selected">
+                <div class="option">
+                    <i class="fa-solid fa-bell-concierge"></i>
+                    <h4>Actividad actual</h4>
+                    
+                </div>
+            </a></li>
+
+            <li><a href='http://localhost:3000/trabajador/historialServiciosTrabajador/<%= email %>'>
+                <div class="option">
+                    <i class="fa-regular fa-file-lines" title="Historial de servicios"></i>
+                    <h4>Historial de servicios</h4>
+                    
+                </div>
+            </a></li>
+
+            <li><a href='http://localhost:3000/trabajador/historialCobrosTrabajador/<%= email %>'>
+                <div class="option">
+                    <i class="fa-solid fa-file-invoice-dollar" title="Historial de cobros"></i>
+                    <h4>Historial de cobros</h4>
+                    
+                </div>
+            </a></li>
+
+
+
+            <li><a href='http://localhost:3000/'>
+                <div class="option">
+                    <i class="fa-solid fa-right-from-bracket" title="Logout"></i>
+                    <h4>Salir</h4>
+                    
+                </div>
+            </a></li>
+
+        </ul>
+
+
+
+        </div>
+    </div>
+
+    <script>
+        //Ejecutar función en el evento click
+        document.getElementById("btn_open").addEventListener("click", open_close_menu);
+        document.getElementById("btn_ini").addEventListener("click", esconder);
+
+        //Declaramos variables
+        var side_menu = document.getElementById("menu_side");
+        var btn_open = document.getElementById("btn_open") ;
+        var body = document.getElementById("body");
+
+
+
+        function esconder(){
+            $('.secciones article').hide();
+            $('.secciones article:first').show();
+
+        }
+
+        //Evento para mostrar y ocultar menú
+            function open_close_menu(){
+                body.classList.toggle("body_move");
+                side_menu.classList.toggle("menu__side_move");
+            }
+
+        //Si el ancho de la página es menor a 760px, ocultará el menú al recargar la página
+
+        if (window.innerWidth < 760){
+
+            body.classList.add("body_move");
+            side_menu.classList.add("menu__side_move");
+        }
+
+        //Haciendo el menú responsive(adaptable)
+
+        window.addEventListener("resize", function(){
+
+            if (window.innerWidth > 760){
+
+                body.classList.remove("body_move");
+                side_menu.classList.remove("menu__side_move");
+            }
+
+            if (window.innerWidth < 760){
+
+                body.classList.add("body_move");
+                side_menu.classList.add("menu__side_move");
+            }
+
+            
+
+        });
+    </script>
+    <main>
+
+        <div class="contenedor">
+            <article>
+                <h1>ACTIVIDAD ACTUAL</h1>
+                <p>Aqui se encuentra disponible tu actividad actual, con la información referente al servicio adquirido. </p>
+
+                <table class="content-table">
+                    <tr >
+                        <td class="Princ">Labor</td>
+                        <td class="Princ">Precio</td>
+                        <td class="Princ">Unidad</td>
+                        <td class="Princ">Cliente</td>
+                        <td class="Princ">Email</td>
+                        <td class="Princ">Telefono</td>
+                        <td class="Princ">Direccion</td>
+                        <td class="Princ">Ciudad</td>
+                        <td class="Princ">Fecha inicio</td>
+                        </tr>
+                   
+                    <% for(var i=0; i < data.length; i++) { %>
+                        <tr>
+                            <td><%= data[i].nombre_labor %></td>
+                            <td><%= data[i].precio_labor %></td>
+                            <td><%= data[i].unidad_valor%></td>
+                            <td><%= data[i].nombre+" "+data[i].apellido%></td>
+                            <td><%= data[i].email%></td> 
+                            <td><%= data[i].telefono%></td>                            
+                            <td><%= data[i].direccion_nombre%></td>
+                            <td><%= data[i].ciudad%></td>
+                            <td><%= data[i].fecha_inicio %></td>
+                        </tr>
+                     <% } %>
+                 
+        
+                </table>
+        
+            </article>
+                </div>
+
+    </main>
+</body>
+</html>
